@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Quieres ser mi novia?</title>
+<style>
+  :root { --bg: #ffeef2; --card: #fff; --accent: #ff6fa3; --text: #222; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    padding: 36px;
+    max-width: 720px;
+    width: 100%;
+    text-align: center;
+  }
+  h1 { margin: 0 0 10px 0; font-size: 2rem; }
+  p { margin-top: 0.2rem; color: #444; }
+  .buttons { margin-top: 28px; }
+  button {
+    font-size: 1.05rem;
+    padding: 12px 22px;
+    margin: 8px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .yes { background: linear-gradient(90deg,#8ef0a6,#3ccf6e); color: #073b18; }
+  .absol { background: linear-gradient(90deg,#ffd38a,#ff9b3f); color: #4a2b00; }
+  .no { background: linear-gradient(90deg,#ffb3c9,#ff6fa3); color: #490018; }
+  footer { margin-top: 22px; font-size: 0.9rem; color: #666; }
+  @media (max-width:420px){ h1{font-size:1.4rem} button{width:100%;} .buttons{display:flex;flex-direction:column;align-items:center;} }
+</style>
+</head>
+<body>
+<div class="card" role="main" aria-live="polite">
+  <h1>¿Quieres ser mi novia? 💖</h1>
+  <p>Escanea el QR que te dio Sebas y elige con el corazón. 🥺</p>
+  <div class="buttons" role="group" aria-label="Opciones">
+    <button class="yes" onclick="aceptar()">Sí</button>
+    <button class="absol" onclick="aceptar()">Absolutamente sí</button>
+    <button class="no" onclick="procesoNo()">No</button>
+  </div>
+  <footer>Mensaje enviado con todo mi cariño. — Sebas</footer>
+</div>
+
+<script>
+function aceptar() {
+  // Mensaje cariñoso cuando acepta
+  try {
+    // Si el navegador permite la API de notificaciones (opcional), se podría usar.
+  } catch (e) {}
+  alert("¡Me llenaste el corazón! ❤️ Gracias por decir que sí. Soy muy feliz.");
+  // También podemos mostrar una sección final bonita en la misma página
+  document.body.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:inherit;">
+      <div style="text-align:center;max-width:720px;padding:32px;border-radius:16px;background:linear-gradient(180deg,#fff,#ffeef8);box-shadow:0 8px 30px rgba(0,0,0,0.08)">
+        <h1>¡Dijiste que sí! 💍</h1>
+        <p>Gracias por hacerme la persona más feliz del mundo. Te prometo cuidarte, respetarte y hacerte sonreír cada día.</p>
+        <p style="margin-top:18px;">— Con amor, Sebas ❤️</p>
+      </div>
+    </div>`;
+}
+
+// Cuando la usuaria pulse "No", se inicia un bucle de confirmaciones.
+// El comportamiento pedido: si en la confirmación responde "Sí" (es decir, está segura), 
+// volvemos a mostrar la confirmación hasta que pulse "No" (no está segura).
+function procesoNo() {
+  // Bucle: mientras la usuaria siga pulsando "Aceptar" (confirm => true), seguir preguntando.
+  // Interpretamos "Aceptar/OK" como "Sí, estoy segura", y "Cancelar" como "No, no estoy segura".
+  while (true) {
+    let segura = confirm("¿Estás segura? (Aceptar = Sí, Cancelar = No)");
+    if (!segura) {
+      // La usuaria indicó que NO está segura -> rompemos el bucle y mostramos mensaje cariñoso.
+      alert("Entonces... ¿me darías una oportunidad? 💖");
+      // Podemos volver a mostrar la pantalla principal para que vuelva a elegir.
+      location.reload();
+      break;
+    }
+    // Si 'segura' === true, el bucle continúa y vuelve a preguntar hasta que cancele.
+    // Esto crea el efecto solicitado: si pica 'Sí' vuelve a aparecer el mensaje.
+  }
+}
+</script>
+</body>
+</html>
